@@ -1,1 +1,39 @@
+RELATÓRIO DO PROJETO - SISTEMA ACADÊMICO
 
+O projeto Sistema Acadêmico foi desenvolvido utilizando a linguagem Java com interface gráfica Swing e banco de dados MySQL.
+
+O sistema permite cadastrar alunos, consultar dados pelo RGM, alterar informações, excluir registros, cadastrar notas e faltas e gerar boletim.
+
+A estrutura do projeto foi separada em pacotes para melhor organização:
+
+connection:
+Responsável pela conexão com o banco de dados MySQL.
+
+dao:
+Contém as classes responsáveis pelas operações no banco de dados.
+
+model:
+Contém as classes de modelo, como Aluno e NotaFalta.
+
+util:
+Contém filtros e validações utilizados nos campos da interface.
+
+view:
+Contém a tela principal do sistema.
+
+imagens:
+Contém os ícones e imagens utilizados na interface.
+
+O banco de dados possui chave primária para o RGM do aluno, impedindo cadastros duplicados. Também possui chave estrangeira entre alunos e notas/faltas com exclusão em cascata.
+
+As validações incluem:
+- RGM apenas numérico
+- Nome apenas com letras
+- Limite de caracteres em nome, endereço e email
+- Faltas entre 0 e 15
+- Reprovação com 15 faltas
+- Validação de email
+- Máscaras para CPF, celular e data de nascimento
+
+Conclusão:
+O sistema atende aos requisitos propostos, utilizando Java, Swing, MySQL, chave primária, chave estrangeira, JTabbedPane e JFormattedTextField.
