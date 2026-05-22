@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS alunos (
     municipio VARCHAR(50) NOT NULL,
     uf VARCHAR(2) NOT NULL,
     celular VARCHAR(15) NOT NULL,
-    curso VARCHAR(100) NOT NULL,
+    curso VARCHAR(50) NOT NULL,
     campus VARCHAR(50) NOT NULL,
     periodo VARCHAR(20) NOT NULL
 );
@@ -28,17 +28,12 @@ CREATE TABLE IF NOT EXISTS notas_faltas (
     semestre VARCHAR(10) NOT NULL,
     nota DECIMAL(4,2) NOT NULL,
     faltas INT NOT NULL,
-
-    CONSTRAINT fk_notas_aluno
-        FOREIGN KEY (rgm_aluno)
-        REFERENCES alunos(rgm)
-        ON DELETE CASCADE,
-
-    CONSTRAINT uk_nota_aluno_disciplina_semestre
-        UNIQUE (rgm_aluno, disciplina, semestre)
+    CONSTRAINT uk_notas_faltas UNIQUE (rgm_aluno, disciplina, semestre),
+    FOREIGN KEY (rgm_aluno) REFERENCES alunos(rgm) ON DELETE CASCADE,
+    CHECK (nota >= 0 AND nota <= 10),
+    CHECK (faltas >= 0 AND faltas <= 15)
 );
 
--- Dados de teste
 INSERT INTO alunos
 (rgm, nome, data_nascimento, cpf, email, endereco, municipio, uf, celular, curso, campus, periodo)
 VALUES
@@ -49,6 +44,6 @@ ON DUPLICATE KEY UPDATE nome = VALUES(nome);
 
 INSERT INTO notas_faltas (rgm_aluno, disciplina, semestre, nota, faltas)
 VALUES
-('01290202', 'Programação Orientada a Objetos', '2026-1', 8.5, 2),
-('01290202', 'Banco de Dados I', '2026-1', 7.0, 4)
+('01290202', 'Programação Orientada a Objetos', '2026-1', 8.50, 2),
+('01290202', 'Banco de Dados I', '2026-1', 7.00, 4)
 ON DUPLICATE KEY UPDATE nota = VALUES(nota), faltas = VALUES(faltas);
